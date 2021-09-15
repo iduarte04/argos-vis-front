@@ -1,18 +1,20 @@
 from logging import debug
 from flask import Flask, render_template, Response
+import numpy as np
 import cv2
-cam = cv2.VideoCapture('http://server.argos.vision/')
+
+url = 'http://server.argos.vision/video_feed'
+
+
+cam = cv2.VideoCapture(url)
+
 
 
 def generate_frames():
-    while True:
-        success, frame = cam.read()
+   while (True):
+    frame = cam.read()
 
-        if not success:
-            break
-        else:
-            ret, buffer = cv2.imencode('.jpg', frame)
-            frame = buffer.toBytes()
+    cv2.imshow('frame',frame)
 
-            yield (b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n'
-            + frame + b'\r\n')
+    if cv2.waitKey(20) & 0xFF == ord('q'):
+        break   
