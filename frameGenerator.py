@@ -1,7 +1,7 @@
 from logging import debug
 from flask import Flask, render_template, Response
 import cv2
-cam = cv2.VideoCapture(0)
+cam = cv2.VideoCapture('http://server.argos.vision/')
 
 
 def generate_frames():
